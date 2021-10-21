@@ -1,4 +1,7 @@
-import { getProviders, signIn as SignIntoProvider } from "next-auth/react";
+import {
+  getProviders,
+  signIn as SignIntoProvider,
+} from "next-auth/react";
 import Header from "../../components/Header";
 
 function signIn({ providers }) {
@@ -12,14 +15,18 @@ function signIn({ providers }) {
           src="https://links.papareact.com/ocw"
           alt="instagram image"
         />
-        <p className="font-xs italic">This is instagram clone not real app</p>
+        <p className="font-xs italic">
+          This is instagram Clone not real app
+        </p>
         <div className="mt-40">
           {Object.values(providers).map((provider) => (
             <div key={provider.name}>
               <button
                 className="p-3 bg-blue-500 rounded-lg text-white"
                 onClick={() =>
-                  SignIntoProvider(provider.id, { callbackUrl: "/" })
+                  SignIntoProvider(provider.id, {
+                    callbackUrl: "/",
+                  })
                 }
               >
                 Sign in wih {provider.name}

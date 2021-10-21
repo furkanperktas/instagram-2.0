@@ -12,7 +12,11 @@ import {
   updateDoc,
 } from "@firebase/firestore";
 import { useSession } from "next-auth/react";
-import { ref, getDownloadURL, uploadString } from "@firebase/storage";
+import {
+  ref,
+  getDownloadURL,
+  uploadString,
+} from "@firebase/storage";
 
 function Modal() {
   const { data: session } = useSession();
@@ -39,16 +43,21 @@ function Modal() {
       timestamp: serverTimestamp(),
     });
 
-    const imageRef = ref(storage, `posts/${docRef.id}/image`);
-
-    await uploadString(imageRef, selectedFile, "data_url").then(
-      async (snapshot) => {
-        const downloadURL = await getDownloadURL(imageRef);
-        await updateDoc(doc(db, "posts", docRef.id), {
-          image: downloadURL,
-        });
-      }
+    const imageRef = ref(
+      storage,
+      `posts/${docRef.id}/image`
     );
+
+    await uploadString(
+      imageRef,
+      selectedFile,
+      "data_url"
+    ).then(async (snapshot) => {
+      const downloadURL = await getDownloadURL(imageRef);
+      await updateDoc(doc(db, "posts", docRef.id), {
+        image: downloadURL,
+      });
+    });
 
     setOpen(false);
     setLoading(false);
@@ -115,7 +124,9 @@ function Modal() {
                     />
                   ) : (
                     <div
-                      onClick={() => filePickerRef.current.click()}
+                      onClick={() =>
+                        filePickerRef.current.click()
+                      }
                       className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-red-100 cursor-pointer"
                     >
                       <CameraIcon
